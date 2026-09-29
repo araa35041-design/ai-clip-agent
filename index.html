@@ -17,49 +17,64 @@
       background: #0b1020;
       color: white;
       min-height: 100vh;
-      padding: 25px 16px;
+      padding: 30px 16px;
     }
 
     .container {
-      max-width: 600px;
+      max-width: 700px;
       margin: auto;
     }
 
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
     .logo {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
       font-size: 32px;
-      font-weight: bold;
       margin-bottom: 8px;
     }
 
     .subtitle {
       color: #9ca3af;
-      margin-bottom: 30px;
     }
 
     .card {
-      background: #151c30;
+      background: #151c32;
       border: 1px solid #26304a;
       border-radius: 18px;
-      padding: 20px;
+      padding: 22px;
+      margin-bottom: 20px;
     }
 
-    input {
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input,
+    select {
       width: 100%;
-      padding: 16px;
-      border-radius: 12px;
-      border: 1px solid #39445f;
-      background: #0d1324;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #36415f;
+      background: #0d1427;
       color: white;
       font-size: 15px;
-      outline: none;
-      margin-bottom: 12px;
+      margin-bottom: 18px;
     }
 
     button {
       width: 100%;
-      padding: 16px;
-      border: 0;
-      border-radius: 12px;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
       background: #2563eb;
       color: white;
       font-size: 16px;
@@ -67,117 +82,47 @@
       cursor: pointer;
     }
 
-    button:active {
-      transform: scale(0.98);
+    button:hover {
+      opacity: 0.9;
     }
 
-    #result {
-      margin-top: 20px;
+    .result {
+      display: none;
     }
 
     .clip {
-      background: #0d1324;
-      border: 1px solid #29344f;
+      background: #0d1427;
+      border: 1px solid #293653;
       border-radius: 14px;
-      padding: 16px;
-      margin-top: 12px;
+      padding: 18px;
+      margin-top: 15px;
     }
 
-    .clip h3 {
-      margin-bottom: 8px;
+    .clip-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 12px;
     }
 
-    .time {
+    .timestamp {
       color: #60a5fa;
       font-weight: bold;
-      margin-bottom: 8px;
+      margin-bottom: 15px;
     }
 
     .hook {
-      color: #d1d5db;
+      background: #151c32;
+      padding: 14px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      line-height: 1.5;
     }
-  </style>
-</head>
 
-<body>
-
-  <div class="container">
-
-    <div class="logo">🎬 AI Clip Agent</div>
-
-    <p class="subtitle">
-      Ubah video panjang menjadi clip menarik dengan bantuan AI.
-    </p>
-
-    <div class="card">
-
-      <input
-        id="videoUrl"
-        type="url"
-        placeholder="Tempel link YouTube di sini..."
-      >
-
-      <button onclick="analyzeVideo()">
-        ANALISIS VIDEO
-      </button>
-
-      <div id="result"></div>
-
-    </div>
-
-  </div>
-
-  <script>
-    function analyzeVideo() {
-
-      const url = document.getElementById("videoUrl").value;
-      const result = document.getElementById("result");
-
-      if (!url) {
-        result.innerHTML =
-          "<p style='color:#f87171;margin-top:15px;'>Masukkan link video terlebih dahulu.</p>";
-        return;
-      }
-
-      result.innerHTML = `
-        <p style="margin-top:20px;color:#60a5fa;">
-          🤖 AI sedang menganalisis video...
-        </p>
-      `;
-
-      setTimeout(() => {
-
-        result.innerHTML = `
-          <h2 style="margin-top:25px;">🔥 Kandidat Clip</h2>
-
-          <div class="clip">
-            <h3>Clip #1</h3>
-            <div class="time">02:14 → 02:48</div>
-            <p class="hook">
-              "Ternyata banyak orang melakukan kesalahan ini..."
-            </p>
-          </div>
-
-          <div class="clip">
-            <h3>Clip #2</h3>
-            <div class="time">05:31 → 06:12</div>
-            <p class="hook">
-              "Kebanyakan orang belum tahu fakta ini..."
-            </p>
-          </div>
-
-          <div class="clip">
-            <h3>Clip #3</h3>
-            <div class="time">08:42 → 09:20</div>
-            <p class="hook">
-              "Bagian ini mungkin akan mengubah cara kamu melihatnya."
-            </p>
-          </div>
-        `;
-
-      }, 1500);
+    .copy {
+      background: #374151;
+      font-size: 14px;
     }
-  </script>
 
-</body>
-</html>
+    .note {
+      color: #9ca3af;
+      font-size: 13px
