@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Clip Agent</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b1020;
+      color: white;
+      min-height: 100vh;
+      padding: 30px 16px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #9ca3af;
+    }
+
+    .card {
+      background: #151c32;
+      border: 1px solid #26304a;
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #36415f;
+      background: #0d1427;
+      color: white;
+      font-size: 15px;
+      margin-bottom: 18px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .result {
+      display: none;
+    }
+
+    .clip {
+      background: #0d1427;
+      border: 1px solid #293653;
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 15px;
+    }
+
+    .clip-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .timestamp {
+      color: #60a5fa;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .hook {
+      background: #151c32;
+      padding: 14px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .copy {
+      background: #374151;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    .note {
+      color: #9ca3af;
+      font-size: 13px;
+      text-align: center;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="logo">✂️</div>
+
+    <h1>AI Clip Agent</h1>
+
+    <p class="subtitle">
+      Temukan momen menarik dan buat hook video
+    </p>
+  </div>
+
+
+  <div class="card">
+
+    <label>🔗 Link Video</label>
+
+    <input
+      type="url"
+      id="videoLink"
+      placeholder="Tempel link YouTube / TikTok"
+    >
+
+
+    <label>⏱️ Durasi Konten</label>
+
+    <select id="duration">
+
+      <option value="15-30">
+        15–30 detik
+      </option>
+
+      <option value="30-45">
+        30–45 detik
+      </option>
+
+      <option value="45-60">
+        45–60 detik
+      </option>
+
+      <option value="60-90">
+        60–90 detik
+      </option>
+
+      <option value="90-120">
+        90–120 detik
+      </option>
+
+    </select>
+
+
+    <button onclick="analyzeVideo()">
+      🤖 ANALYZE VIDEO
+    </button>
+
+
+    <p class="note">
+      Pilih durasi konten untuk mendapatkan
+      10 rekomendasi clip dan hook.
+    </p>
+
+  </div>
+
+
+  <div class="card result" id="result">
+
+    <h2>🔥 10 Rekomendasi Clip</h2>
+
+    <div id="clips"></div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const hooks = [
+
+  "Ternyata alasan sebenarnya bukan seperti yang kita kira...",
+
+  "Bagian ini mungkin bakal bikin kamu berpikir ulang...",
+
+  "Jarang ada yang membahas fakta yang satu ini...",
+
+  "Tunggu sampai kamu melihat bagian akhirnya...",
+
+  "Ini adalah hal yang sering orang lewatkan...",
+
+  "Kalau kamu tahu hal ini dari awal, semuanya bisa berbeda...",
+
+  "Kebanyakan orang ternyata salah memahami bagian ini...",
+
+  "Fakta berikut ini cukup mengejutkan...",
+
+  "Inilah alasan yang sebenarnya terjadi di baliknya...",
+
+  "Bagian terakhir adalah yang paling menarik..."
+];
+
+
+function analyzeVideo() {
+
+  const link =
+    document.getElementById("videoLink").value.trim();
+
+  const duration =
+    document.getElementById("duration").value;
+
+
+  if (!link) {
+
+    alert(
+      "Silakan masukkan link video terlebih dahulu."
+    );
+
+    return;
+  }
+
+
+  const parts =
+    duration.split("-");
+
+  const minDuration =
+    Number(parts[0]);
+
+  const maxDuration =
+    Number(parts[1]);
+
+
+  const clips =
+    document.getElementById("clips");
+
+  clips.innerHTML = "";
+
+
+  for (let i = 0; i < 10; i++) {
+
+    const startSeconds =
+      60 + (i * 120);
+
+    const clipDuration =
+      minDuration +
+      Math.floor(
+        (maxDuration - minDuration) / 2
+      );
+
+    const endSeconds =
+      startSeconds + clipDuration;
+
+
+    const clip =
+      document.createElement("div");
+
+    clip.className = "clip";
+
+
+    clip.innerHTML = `
+
+      <div class="clip-title">
+        CLIP #${i + 1}
+      </div>
+
+      <div class="timestamp">
+        ⏱️ ${formatTime(startSeconds)}
+        → ${formatTime(endSeconds)}
+      </div>
+
+      <div class="hook">
+        🔥 ${hooks[i]}
+      </div>
+
+      <button
+        class="copy"
+        onclick="copyText('${hooks[i]}')">
+        📋 Copy Hook
+      </button>
+
+    `;
+
+
+    clips.appendChild(clip);
+
+  }
+
+
+  document.getElementById("result")
+    .style.display = "block";
+
+
+  window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: "smooth"
+  });
+
+}
+
+
+function formatTime(seconds) {
+
+  const minutes =
+    Math.floor(seconds / 60);
+
+  const secs =
+    seconds % 60;
+
+
+  return String(minutes).padStart(2, "0")
+    + ":" +
+    String(secs).padStart(2, "0");
+
+}
+
+
+function copyText(text) {
+
+  navigator.clipboard.writeText(text);
+
+  alert("Hook berhasil disalin!");
+
+}
+
+</script>
+
+</body>
+</html>
